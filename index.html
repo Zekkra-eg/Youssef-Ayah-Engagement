@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +50,6 @@
         ========================= */
 
         .video-container {
-
             position: relative;
 
             width: 100%;
@@ -66,7 +66,6 @@
         ========================= */
 
         #mainVideo {
-
             position: absolute;
 
             top: 0;
@@ -77,31 +76,21 @@
 
             display: block;
 
-            /*
-                Fills the entire screen
-                while keeping the video's
-                original proportions.
-            */
             object-fit: cover;
-
             object-position: center;
 
             background: #000;
 
-            /*
-                Prevent accidental selection
-            */
             user-select: none;
             -webkit-user-select: none;
         }
 
 
         /* =========================
-           WHITE CORNERS / FRAME
+           WHITE FRAME
         ========================= */
 
         .frame {
-
             position: absolute;
 
             inset: 0;
@@ -113,17 +102,12 @@
 
 
         .frame::before {
-
             content: "";
 
             position: absolute;
 
             inset: 0;
 
-            /*
-                White border around
-                the entire screen
-            */
             border: 10px solid #ffffff;
 
             pointer-events: none;
@@ -135,7 +119,6 @@
         ========================= */
 
         .continue-button {
-
             position: absolute;
 
             left: 50%;
@@ -143,37 +126,21 @@
 
             z-index: 10;
 
-            /*
-                Initial hidden position
-            */
-            transform:
-                translate(-50%, 20px);
+            transform: translate(-50%, 20px);
 
             min-width: 155px;
 
             padding: 14px 30px;
 
-            /*
-                Thin elegant border
-            */
             border: 1px solid rgba(255, 255, 255, 0.9);
 
-            /*
-                Slightly squared luxury look
-            */
             border-radius: 3px;
 
-            /*
-                Glass effect
-            */
             background: rgba(255, 255, 255, 0.08);
 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
 
-            /*
-                Elegant typography
-            */
             color: #ffffff;
 
             font-family:
@@ -191,24 +158,15 @@
 
             cursor: pointer;
 
-            /*
-                Hidden before video ends
-            */
             opacity: 0;
 
             visibility: hidden;
 
-            /*
-                Smooth appearance
-            */
             transition:
                 opacity 1s ease,
                 transform 1s cubic-bezier(0.22, 1, 0.36, 1),
                 background 0.3s ease;
 
-            /*
-                Mobile tap highlight
-            */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -218,13 +176,11 @@
         ========================= */
 
         .continue-button.show {
-
             opacity: 1;
 
             visibility: visible;
 
-            transform:
-                translate(-50%, 0);
+            transform: translate(-50%, 0);
         }
 
 
@@ -233,9 +189,7 @@
         ========================= */
 
         .continue-button:hover {
-
-            background:
-                rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.18);
         }
 
 
@@ -244,12 +198,9 @@
         ========================= */
 
         .continue-button:active {
+            background: rgba(255, 255, 255, 0.22);
 
-            background:
-                rgba(255, 255, 255, 0.22);
-
-            transform:
-                translate(-50%, 1px);
+            transform: translate(-50%, 1px);
         }
 
 
@@ -260,13 +211,10 @@
         @media (max-width: 600px) {
 
             .frame::before {
-
                 border-width: 7px;
             }
 
-
             .continue-button {
-
                 bottom: 7%;
 
                 min-width: 140px;
@@ -281,13 +229,12 @@
 
 
         /* =========================
-           VERY SMALL SCREENS
+           SMALL HEIGHT SCREENS
         ========================= */
 
         @media (max-height: 600px) {
 
             .continue-button {
-
                 bottom: 6%;
 
                 padding: 11px 24px;
@@ -300,17 +247,10 @@
 
 <body>
 
-
-    <!-- =========================
-         VIDEO CONTAINER
-    ========================= -->
-
     <div class="video-container">
 
 
-        <!-- =========================
-             VIDEO
-        ========================= -->
+        <!-- VIDEO -->
 
         <video
             id="mainVideo"
@@ -331,16 +271,12 @@
         </video>
 
 
-        <!-- =========================
-             WHITE FRAME
-        ========================= -->
+        <!-- WHITE FRAME -->
 
         <div class="frame"></div>
 
 
-        <!-- =========================
-             CONTINUE BUTTON
-        ========================= -->
+        <!-- CONTINUE BUTTON -->
 
         <button
             id="continueButton"
@@ -354,14 +290,10 @@
     </div>
 
 
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
-
     <script>
 
         /* =========================
-           GET ELEMENTS
+           ELEMENTS
         ========================= */
 
         const video =
@@ -375,11 +307,6 @@
            VIDEO SETTINGS
         ========================= */
 
-        /*
-            Make sure the video
-            never loops.
-        */
-
         video.loop = false;
 
 
@@ -392,7 +319,7 @@
             video.play().catch((error) => {
 
                 console.log(
-                    "Autoplay was blocked by the browser:",
+                    "Autoplay was blocked:",
                     error
                 );
 
@@ -415,25 +342,20 @@
 
 
             /*
-                Keep the video
-                exactly on the final frame.
+                Keep the final frame visible.
             */
 
             if (
                 Number.isFinite(video.duration) &&
                 video.duration > 0
             ) {
-
-                video.currentTime =
-                    video.duration;
-
+                video.currentTime = video.duration;
             }
 
 
             /*
-                Wait for the browser
-                to render the final frame,
-                then reveal the button.
+                Show the button after
+                the final frame is rendered.
             */
 
             requestAnimationFrame(() => {
@@ -446,18 +368,18 @@
 
 
         /* =========================
-           BUTTON
+           BUTTON REDIRECT
         ========================= */
 
-         button.addEventListener("click", () => {
+        button.addEventListener("click", () => {
+
             window.location.href = "canvaembed.html";
-        });
+
         });
 
     </script>
 
-
 </body>
 
 </html>
-
+```
