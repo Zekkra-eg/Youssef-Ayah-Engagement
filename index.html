@@ -1,27 +1,42 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     >
 
-    <title>Full Screen Video</title>
+    <title>Invitation</title>
 
     <style>
+
+        /* =========================
+           RESET
+        ========================= */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
+        /* =========================
+           PAGE
+        ========================= */
+
         html,
         body {
             width: 100%;
             height: 100%;
+
             overflow: hidden;
-            background: #000;
+
+            background: #ffffff;
         }
 
         body {
@@ -29,25 +44,30 @@
             height: 100dvh;
         }
 
+
         /* =========================
            VIDEO CONTAINER
         ========================= */
 
         .video-container {
+
             position: relative;
 
             width: 100%;
             height: 100dvh;
 
             overflow: hidden;
+
             background: #000;
         }
+
 
         /* =========================
            VIDEO
         ========================= */
 
         #mainVideo {
+
             position: absolute;
 
             top: 0;
@@ -60,100 +80,238 @@
 
             /*
                 Fills the entire screen
-                without stretching the video.
+                while keeping the video's
+                original proportions.
             */
             object-fit: cover;
+
             object-position: center;
 
             background: #000;
+
+            /*
+                Prevent accidental selection
+            */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
+
         /* =========================
-           BUTTON
+           WHITE CORNERS / FRAME
+        ========================= */
+
+        .frame {
+
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 5;
+
+            pointer-events: none;
+        }
+
+
+        .frame::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            /*
+                White border around
+                the entire screen
+            */
+            border: 10px solid #ffffff;
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           ELEGANT BUTTON
         ========================= */
 
         .continue-button {
+
             position: absolute;
 
             left: 50%;
-            bottom: 7%;
-
-            transform: translate(-50%, 20px);
-
-            padding: 14px 32px;
-
-            border: none;
-            border-radius: 999px;
-
-            background: rgba(255, 255, 255, 0.95);
-            color: #111;
-
-            font-family: Arial, sans-serif;
-            font-size: 15px;
-            font-weight: 500;
-
-            cursor: pointer;
-
-            opacity: 0;
-            visibility: hidden;
-
-            /*
-                Button is initially invisible.
-            */
-            transition:
-                opacity 0.8s ease,
-                transform 0.8s ease,
-                visibility 0.8s ease;
+            bottom: 8%;
 
             z-index: 10;
 
+            /*
+                Initial hidden position
+            */
+            transform:
+                translate(-50%, 20px);
+
+            min-width: 155px;
+
+            padding: 14px 30px;
+
+            /*
+                Thin elegant border
+            */
+            border: 1px solid rgba(255, 255, 255, 0.9);
+
+            /*
+                Slightly squared luxury look
+            */
+            border-radius: 3px;
+
+            /*
+                Glass effect
+            */
+            background: rgba(255, 255, 255, 0.08);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            /*
+                Elegant typography
+            */
+            color: #ffffff;
+
+            font-family:
+                "Times New Roman",
+                Georgia,
+                serif;
+
+            font-size: 13px;
+
+            font-weight: 400;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            /*
+                Hidden before video ends
+            */
+            opacity: 0;
+
+            visibility: hidden;
+
+            /*
+                Smooth appearance
+            */
+            transition:
+                opacity 1s ease,
+                transform 1s cubic-bezier(0.22, 1, 0.36, 1),
+                background 0.3s ease;
+
+            /*
+                Mobile tap highlight
+            */
             -webkit-tap-highlight-color: transparent;
         }
 
-        /*
-            Button appears after video ends.
-        */
+
+        /* =========================
+           BUTTON APPEARS
+        ========================= */
+
         .continue-button.show {
+
             opacity: 1;
+
             visibility: visible;
 
-            transform: translate(-50%, 0);
+            transform:
+                translate(-50%, 0);
         }
 
-        /*
-            Small hover effect for desktop.
-        */
+
+        /* =========================
+           BUTTON HOVER
+        ========================= */
+
         .continue-button:hover {
-            transform: translate(-50%, -2px);
-            background: #fff;
+
+            background:
+                rgba(255, 255, 255, 0.18);
         }
 
-        /*
-            Better touch experience on mobile.
-        */
+
+        /* =========================
+           BUTTON ACTIVE
+        ========================= */
+
         .continue-button:active {
-            transform: translate(-50%, 0);
+
+            background:
+                rgba(255, 255, 255, 0.22);
+
+            transform:
+                translate(-50%, 1px);
         }
+
 
         /* =========================
            MOBILE
         ========================= */
 
         @media (max-width: 600px) {
+
+            .frame::before {
+
+                border-width: 7px;
+            }
+
+
             .continue-button {
-                bottom: 6%;
 
-                padding: 13px 28px;
+                bottom: 7%;
 
-                font-size: 14px;
+                min-width: 140px;
+
+                padding: 13px 26px;
+
+                font-size: 12px;
+
+                letter-spacing: 2.5px;
             }
         }
+
+
+        /* =========================
+           VERY SMALL SCREENS
+        ========================= */
+
+        @media (max-height: 600px) {
+
+            .continue-button {
+
+                bottom: 6%;
+
+                padding: 11px 24px;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
+
+    <!-- =========================
+         VIDEO CONTAINER
+    ========================= -->
+
     <div class="video-container">
+
+
+        <!-- =========================
+             VIDEO
+        ========================= -->
 
         <video
             id="mainVideo"
@@ -163,19 +321,28 @@
             preload="auto"
             disablepictureinpicture
         >
+
             <source
                 src="Add a heading.mp4"
                 type="video/mp4"
             >
 
             Your browser does not support HTML5 video.
+
         </video>
 
 
-        <!--
-            This button stays hidden
-            until the video finishes.
-        -->
+        <!-- =========================
+             WHITE FRAME
+        ========================= -->
+
+        <div class="frame"></div>
+
+
+        <!-- =========================
+             CONTINUE BUTTON
+        ========================= -->
+
         <button
             id="continueButton"
             class="continue-button"
@@ -184,17 +351,35 @@
             Continue
         </button>
 
+
     </div>
 
 
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
     <script>
-        const video = document.getElementById("mainVideo");
-        const button = document.getElementById("continueButton");
+
+        /* =========================
+           GET ELEMENTS
+        ========================= */
+
+        const video =
+            document.getElementById("mainVideo");
+
+        const button =
+            document.getElementById("continueButton");
 
 
         /* =========================
            VIDEO SETTINGS
         ========================= */
+
+        /*
+            Make sure the video
+            never loops.
+        */
 
         video.loop = false;
 
@@ -203,12 +388,17 @@
            AUTOPLAY
         ========================= */
 
-        window.addEventListener("load", async () => {
-            try {
-                await video.play();
-            } catch (error) {
-                console.log("Autoplay was blocked:", error);
-            }
+        window.addEventListener("load", () => {
+
+            video.play().catch((error) => {
+
+                console.log(
+                    "Autoplay was blocked by the browser:",
+                    error
+                );
+
+            });
+
         });
 
 
@@ -219,27 +409,40 @@
         video.addEventListener("ended", () => {
 
             /*
-                Pause the video.
-                It will remain on the final frame.
+                Stop the video.
             */
+
             video.pause();
 
-            /*
-                Make absolutely sure
-                the playhead stays at the end.
-            */
-            if (Number.isFinite(video.duration)) {
-                video.currentTime = video.duration;
-            }
 
             /*
-                Wait a tiny moment so the final
-                frame is rendered before showing
-                the button.
+                Keep the video
+                exactly on the final frame.
             */
+
+            if (
+                Number.isFinite(video.duration) &&
+                video.duration > 0
+            ) {
+
+                video.currentTime =
+                    video.duration;
+
+            }
+
+
+            /*
+                Wait for the browser
+                to render the final frame,
+                then reveal the button.
+            */
+
             requestAnimationFrame(() => {
+
                 button.classList.add("show");
+
             });
+
         });
 
 
@@ -248,25 +451,23 @@
         ========================= */
 
         button.addEventListener("click", () => {
-            window.location.href = "canvaembed.html";
+
+            /*
+                No redirect.
+
+                The button currently does
+                absolutely nothing.
+
+                You can add an action here
+                later if you want.
+            */
+
         });
 
-        video.addEventListener("ended", () => {
-            video.pause();
-
-            if (Number.isFinite(video.duration)) {
-                video.currentTime = video.duration;
-            }
-
-            requestAnimationFrame(() => {
-                button.classList.add("show");
-            });
-
-            setTimeout(() => {
-                window.location.href = "canvaembed.html";
-            }, 1200);
-        });
     </script>
 
+
 </body>
+
 </html>
+```
