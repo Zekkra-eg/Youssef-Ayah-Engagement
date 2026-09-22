@@ -114,6 +114,38 @@
 
 
         /* =========================
+           CORNER GIFS
+        ========================= */
+
+        .corner-gif {
+            position: absolute;
+
+            z-index: 6;
+
+            width: clamp(72px, 9vw, 140px);
+            height: auto;
+
+            opacity: 0.9;
+
+            pointer-events: none;
+
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .corner-gif.top-left {
+            top: 24px;
+            left: 24px;
+        }
+
+        .corner-gif.bottom-right {
+            right: 24px;
+            bottom: 24px;
+            transform: rotate(180deg);
+        }
+
+
+        /* =========================
            ELEGANT BUTTON
         ========================= */
 
@@ -273,6 +305,21 @@
         <!-- WHITE FRAME -->
 
         <div class="frame"></div>
+
+
+        <!-- CORNER GIFS -->
+
+        <img
+            class="corner-gif top-left"
+            src="gif.gif"
+            alt="Decorative animated gif"
+        >
+
+        <img
+            class="corner-gif bottom-right"
+            src="gif.gif"
+            alt="Decorative animated gif"
+        >
 
 
         <!-- CONTINUE BUTTON -->
